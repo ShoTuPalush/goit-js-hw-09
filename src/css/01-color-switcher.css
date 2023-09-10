@@ -1,0 +1,13 @@
+div {
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+button {
+  width: 84px;
+  height: 34px;
+  border-radius: 10px;
+  border: solid 1px #5555;
+}
