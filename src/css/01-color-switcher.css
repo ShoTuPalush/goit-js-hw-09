@@ -6,8 +6,10 @@ div {
 }
 
 button {
-  width: 84px;
-  height: 34px;
+  width: 124px;
+  height: 54px;
   border-radius: 10px;
   border: solid 1px #5555;
+  font-size: 28px;
+  cursor: pointer;
 }
