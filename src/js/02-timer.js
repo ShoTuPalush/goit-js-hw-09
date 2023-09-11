@@ -11,7 +11,7 @@ const minutes = document.querySelector('span[data-minutes]');
 const seconds = document.querySelector('span[data-seconds]');
 
 startBtn.addEventListener('click', startTimer);
-startBtn.setAttribute('disabled', 'disabled');
+startBtn.disabled = true;
 let timerId = null;
 
 const flatpickrr = new flatpickr(dateInput, {
@@ -20,13 +20,12 @@ const flatpickrr = new flatpickr(dateInput, {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const date = new Date();
-    if (selectedDates[0].getTime() < date.getTime()) {
+    if (selectedDates[0].getTime() < Date.now()) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      startBtn.setAttribute('disabled', 'disabled');
+      startBtn.disabled = true;
     } else {
       updateTime();
-      startBtn.removeAttribute('disabled');
+      startBtn.disabled = false;
     }
   },
 });
@@ -43,7 +42,7 @@ const updateTime = () => {
   const ms = flatpickrr.selectedDates[0].getTime() - date.getTime();
   if (ms < 0) {
     clearTimeout(timerId);
-    startBtn.removeAttribute('disabled');
+    startBtn.disabled = false;
     return;
   }
   const stayTime = convertMs(ms);
@@ -58,19 +57,14 @@ function addLeadingZero(value) {
 }
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
