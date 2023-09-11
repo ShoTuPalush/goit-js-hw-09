@@ -23,7 +23,6 @@ const flatpickrr = new flatpickr(dateInput, {
     if (selectedDates[0].getTime() < Date.now()) {
       errorTime();
     } else {
-      updateTime();
       startBtn.disabled = false;
     }
   },
@@ -32,10 +31,6 @@ const flatpickrr = new flatpickr(dateInput, {
 function errorTime() {
   Notiflix.Notify.failure('Please choose a date in the future');
   startBtn.disabled = true;
-  days.textContent = '00';
-  hours.textContent = '00';
-  minutes.textContent = '00';
-  seconds.textContent = '00';
 }
 
 function startTimer() {
@@ -43,10 +38,10 @@ function startTimer() {
   timerId = setInterval(() => {
     updateTime();
   }, 1000);
-  startBtn.setAttribute('disabled', 'disabled');
+  startBtn.disabled = true;
 }
 
-const updateTime = () => {
+function updateTime() {
   const date = new Date();
   const ms = flatpickrr.selectedDates[0].getTime() - date.getTime();
   if (ms < 0) {
@@ -59,7 +54,7 @@ const updateTime = () => {
   hours.textContent = addLeadingZero(stayTime.hours);
   minutes.textContent = addLeadingZero(stayTime.minutes);
   seconds.textContent = addLeadingZero(stayTime.seconds);
-};
+}
 
 function addLeadingZero(value) {
   return value.toString().padStart(2, '0');

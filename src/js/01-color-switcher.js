@@ -4,17 +4,20 @@ let timerId = null;
 
 startBtn.addEventListener('click', changeColor);
 stopBtn.addEventListener('click', stopchangeColor);
+stopBtn.disabled = true;
 
 function changeColor() {
   timerId = setInterval(() => {
     document.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
-  startBtn.setAttribute('disabled', 'disabled');
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
 }
 
 function stopchangeColor() {
   clearInterval(timerId);
-  startBtn.removeAttribute('disabled');
+  startBtn.disabled = false;
+  stopBtn.disabled = true;
 }
 
 function getRandomHexColor() {
