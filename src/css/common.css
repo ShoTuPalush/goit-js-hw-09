@@ -16,3 +16,12 @@ img {
   display: block;
   max-width: 100%;
 }
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  font-size: 24px;
+}

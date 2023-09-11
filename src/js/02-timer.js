@@ -21,8 +21,7 @@ const flatpickrr = new flatpickr(dateInput, {
   minuteIncrement: 1,
   onClose(selectedDates) {
     if (selectedDates[0].getTime() < Date.now()) {
-      Notiflix.Notify.failure('Please choose a date in the future');
-      startBtn.disabled = true;
+      errorTime();
     } else {
       updateTime();
       startBtn.disabled = false;
@@ -30,7 +29,17 @@ const flatpickrr = new flatpickr(dateInput, {
   },
 });
 
+function errorTime() {
+  Notiflix.Notify.failure('Please choose a date in the future');
+  startBtn.disabled = true;
+  days.textContent = '00';
+  hours.textContent = '00';
+  minutes.textContent = '00';
+  seconds.textContent = '00';
+}
+
 function startTimer() {
+  dateInput.disabled = true;
   timerId = setInterval(() => {
     updateTime();
   }, 1000);
@@ -42,7 +51,7 @@ const updateTime = () => {
   const ms = flatpickrr.selectedDates[0].getTime() - date.getTime();
   if (ms < 0) {
     clearTimeout(timerId);
-    startBtn.disabled = false;
+    dateInput.disabled = false;
     return;
   }
   const stayTime = convertMs(ms);
