@@ -12,7 +12,7 @@ function startCreate(event) {
 
   for (let index = 0; index < amount; index++) {
     let promiseDelay = delay + step * index;
-    position = index + 1;
+    let position = index + 1;
     createPromise(position, promiseDelay)
       .then(({ position, delay }) =>
         Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`)
